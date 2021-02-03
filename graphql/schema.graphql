@@ -1,0 +1,147 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
+
+type User {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    email: String!
+    country: String
+    address: String
+    city: String
+    zip_code: String
+    phone_number: String
+}
+
+type Brand {
+    id: ID!
+    name: String!
+    slug: String!
+    logo: String
+    Products: [Product!]! @hasMany
+}
+
+type Product {
+    id: ID!
+    name: String!
+    slug: String!
+    sku: String!
+    quantity: Int!
+    description: String
+    weight: Float
+    price: Float!
+    sale_price: Float
+    status: Boolean
+    featured: Boolean
+    brand_id: Int!
+    Categories: [Category!]! @belongsToMany
+    Brand: Brand! @belongsTo
+    Images: [ProductImage!]! @hasMany
+    ProductAttributes: [ProductAttribute!]! @hasMany
+}
+
+type Attribute{
+    id: ID!
+    name: String!
+    frontend_type: String!
+    AttributeValues: [AttributeValue!]! @hasMany
+    ProductAttributes: [ProductAttribute!]! @hasMany
+}
+
+type AttributeValue{
+    id: ID!
+    value: String!
+    Attribute: Attribute @belongsTo
+}
+
+type ProductAttribute{
+    id: ID!
+    value: String!
+    price: Float!
+    quantity: Int!
+    product_id: Int!
+    attribute_id: Int!
+    Product: Product @belongsTo
+    Attribute: Attribute @belongsTo
+}
+
+type ProductImage{
+    id: ID!
+    image: String!
+    product_id: Int!
+    Product: Product @belongsTo
+}
+
+type Order{
+    id: ID!
+    order_number: String!
+    first_name: String!
+    last_name: String!
+    address: String!
+    city: String!
+    state: String!
+    country: String!
+    zip_code: String!
+    phone_number: String!
+    user_id: Int!
+    created_at: DateTime
+    User: User @belongsTo
+    OrderItems: OrderItem @hasMany
+}
+type OrderItem{
+    id: ID!
+    price: Float!
+    quantity: Int!
+    product_id: Int!
+    order_id: Int!
+    Order: Order @belongsTo
+    Product: Product @belongsTo
+}
+
+
+
+type Category {
+    id: ID!
+    name: String!
+    slug: String!
+    parent_id: Int
+    Products: [Product!]! @belongsToMany
+}
+
+type AuthPayload {
+    access_token: String
+    refresh_token: String
+    expires_in: Int
+    token_type: String
+    user: User
+}
+
+type LogoutResponse {
+    status: String!
+    message: String
+}
+
+
+type RegisterResponse {
+    tokens: AuthPayload
+    status: RegisterStatuses!
+}
+
+type ProductImageResponse {
+    status: Int
+}
+
+enum RegisterStatuses {
+    MUST_VERIFY_EMAIL
+    SUCCESS
+}
+
+#import mutation.graphql
+#import query.graphql
+#import input.graphql

@@ -1,0 +1,85 @@
+input BrandInput {
+    name: String! @rules(apply: ["required", "string", "min:2", "max:30"]),
+    logo: Upload
+}
+
+input CategoryInput {
+    name: String! @rules(apply: ["required","string","min:2","max:30"])
+    parent_id: Int @rules(apply: ["integer"])
+}
+
+input ProductInput {
+    name: String! @rules(apply: ["required","string","min:2","max:255"]),
+    sku: String! @rules(apply: ["required","string","min:2","max:60"]),
+    description: String @rules(apply: ["string","min:10","nullable"]),
+    quantity: Int! @rules(apply: ["required","integer"]),
+    weight: Float! @rules(apply: ["required","numeric"]),
+    price: Float! @rules(apply: ["required","numeric"]),
+    sale_price: Float @rules(apply: ["numeric"]),
+    status: Boolean! @rules(apply: ["required","boolean"]),
+    featured: Boolean! @rules(apply: ["required","boolean"]),
+    brand_id: Int @rules(apply: ["required","integer"]),
+    categories_id: [Int]!
+}
+
+input OrderInput {
+    first_name: String! @rules(apply: ["required","string","min:2","max:255"])
+    last_name: String! @rules(apply: ["required","string","min:2","max:255"])
+    address: String! @rules(apply: ["required","string","min:2","max:255"])
+    city: String! @rules(apply: ["required","string","min:2","max:255"])
+    state: String! @rules(apply: ["required","string","min:2","max:255"])
+    country: String! @rules(apply: ["required","string","min:2","max:255"])
+    zip_code: String! @rules(apply: ["required","string","min:2","max:255"])
+    phone_number: String! @rules(apply: ["required","string","min:2","max:255"])
+    user_id: Int! @rules(apply: ["required","integer"])
+    amount: Float! @rules(apply: ["required","numeric"])
+    token: String! @rules(apply: ["required","string"])
+    items: String! @rules(apply: ["required","string"])
+}
+
+input AttributeInput {
+    name: String! @rules(apply: ["required","string","min:2","max:255"]),
+    frontend_type: String! @rules(apply: ["required","string","min:2","max:255"])
+}
+
+input AttributeValueInput {
+    value: String! @rules(apply: ["required","string","max:255"]),
+    attribute_id: Int! @rules(apply: ["required","integer"])
+}
+
+input UserInput {
+    first_name: String! @rules(apply: ["required","string","min:2","max:30"]),
+    last_name: String! @rules(apply: ["required","string","min:2","max:30"]),
+    address: String @rules(apply: ["nullable","string","min:5","max:255"]),
+    email: String! @rules(apply: ["required","string","min:2","max:50"])
+    country: String @rules(apply: ["nullable","string","min:2","max:60"])
+    city: String @rules(apply: ["nullable","string","min:2","max:60"])
+    zip_code: String @rules(apply: ["nullable","string","min:4","max:5"])
+    phone_number: String @rules(apply: ["nullable","string","min:8","max:15"])
+}
+
+input ProductAttributeInput {
+    value: String! @rules(apply: ["required","string","min:2","max:255"]),
+    price: Float! @rules(apply: ["required","numeric"])
+    quantity: Float! @rules(apply: ["required","numeric"])
+    attribute_id: Int! @rules(apply: ["required","integer"])
+    product_id: Int! @rules(apply: ["required","integer"])
+}
+
+input ProductImageInput {
+    images: [Upload]! @rules(apply: ["required"]),
+    product_id: Int! @rules(apply: ["required","integer"])
+}
+
+input LoginInput {
+    username: String! @rules(apply: ["required","string","min:6","max:50"])
+    password: String! @rules(apply: ["required","string","min:6","max:20"])
+}
+
+input RegisterInput {
+    first_name: String! @rules(apply: ["required","string","min:2","max:30"]),
+    last_name: String! @rules(apply: ["required","string","min:2","max:30"]),
+    email: String! @rules(apply: ["required","string","min:2","max:50"])
+    password: String! @rules(apply: ["required","confirmed","string","min:6","max:20"])
+    password_confirmation: String! @rules(apply: ["required","string","min:6","max:20"])
+}
