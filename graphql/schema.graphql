@@ -46,31 +46,6 @@ type Product {
     ProductAttributes: [ProductAttribute!]! @hasMany
 }
 
-type Attribute{
-    id: ID!
-    name: String!
-    frontend_type: String!
-    AttributeValues: [AttributeValue!]! @hasMany
-    ProductAttributes: [ProductAttribute!]! @hasMany
-}
-
-type AttributeValue{
-    id: ID!
-    value: String!
-    Attribute: Attribute @belongsTo
-}
-
-type ProductAttribute{
-    id: ID!
-    value: String!
-    price: Float!
-    quantity: Int!
-    product_id: Int!
-    attribute_id: Int!
-    Product: Product @belongsTo
-    Attribute: Attribute @belongsTo
-}
-
 type ProductImage{
     id: ID!
     image: String!
@@ -103,8 +78,6 @@ type OrderItem{
     Order: Order @belongsTo
     Product: Product @belongsTo
 }
-
-
 
 type Category {
     id: ID!

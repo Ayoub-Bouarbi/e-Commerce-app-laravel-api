@@ -37,16 +37,6 @@ input OrderInput {
     items: String! @rules(apply: ["required","string"])
 }
 
-input AttributeInput {
-    name: String! @rules(apply: ["required","string","min:2","max:255"]),
-    frontend_type: String! @rules(apply: ["required","string","min:2","max:255"])
-}
-
-input AttributeValueInput {
-    value: String! @rules(apply: ["required","string","max:255"]),
-    attribute_id: Int! @rules(apply: ["required","integer"])
-}
-
 input UserInput {
     first_name: String! @rules(apply: ["required","string","min:2","max:30"]),
     last_name: String! @rules(apply: ["required","string","min:2","max:30"]),
@@ -56,14 +46,6 @@ input UserInput {
     city: String @rules(apply: ["nullable","string","min:2","max:60"])
     zip_code: String @rules(apply: ["nullable","string","min:4","max:5"])
     phone_number: String @rules(apply: ["nullable","string","min:8","max:15"])
-}
-
-input ProductAttributeInput {
-    value: String! @rules(apply: ["required","string","min:2","max:255"]),
-    price: Float! @rules(apply: ["required","numeric"])
-    quantity: Float! @rules(apply: ["required","numeric"])
-    attribute_id: Int! @rules(apply: ["required","integer"])
-    product_id: Int! @rules(apply: ["required","integer"])
 }
 
 input ProductImageInput {

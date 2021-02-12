@@ -12,19 +12,8 @@ type Mutation {
     deleteBrand(id: ID!): Brand @field(resolver: "BrandMutation@delete")
     deleteBrandImage(id: ID!): Brand @field(resolver: "BrandMutation@deleteImage")
 
-    createAttribute(input: AttributeInput @spread): Attribute @field(resolver: "AttributeMutation@create")
-    updateAttribute(id: ID!,input: AttributeInput @spread): Attribute @field(resolver: "AttributeMutation@update")
-    deleteAttribute(id: ID!): Attribute @field(resolver: "AttributeMutation@delete")
-
-    createAttributeValue(input: AttributeValueInput @spread): AttributeValue @field(resolver: "AttributeValueMutation@create")
-    updateAttributeValue(id: ID!,input: AttributeValueInput @spread): AttributeValue @field(resolver: "AttributeValueMutation@update")
-    deleteAttributeValue(id: ID!): AttributeValue @field(resolver: "AttributeValueMutation@delete")
-
     uploadProductImage(input: ProductImageInput @spread): ProductImageResponse @field(resolver: "ProductImageMutation@upload")
     deleteProductImage(id: ID!): ProductImage @field(resolver: "ProductImageMutation@delete")
-
-    createProductAttribute(input: ProductAttributeInput @spread): ProductAttribute @field(resolver: "ProductAttributeMutation@create")
-    deleteProductAttribute(id: ID!): ProductAttribute @field(resolver: "ProductAttributeMutation@delete")
 
     createUser(input: UserInput @spread, password: String! @rules(apply: ["required","confirmed","string","min:6","max:20"]), password_confirmation: String! @rules(apply: ["required","string","min:6","max:20"])): User @field(resolver: "UserMutation@create")
     updateUser(id: ID!,input: UserInput @spread): User @field(resolver: "UserMutation@update")

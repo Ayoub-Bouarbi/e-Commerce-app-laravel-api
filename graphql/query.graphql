@@ -13,12 +13,8 @@ type Query {
 
     products: [Product!]! @all
     getProducts(first: Int!): [Product!]! @paginate
-    
     product(id: ID @eq): Product @find
     productBySlug(slug: String @eq): Product @find
-
-    attributes: [Attribute!]! @all
-    attribute(id: ID @eq): Attribute @find
 
     users: [User!]! @all
     user(id: ID @eq): User @find
