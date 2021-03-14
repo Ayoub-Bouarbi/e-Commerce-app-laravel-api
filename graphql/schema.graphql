@@ -43,7 +43,6 @@ type Product {
     Categories: [Category!]! @belongsToMany
     Brand: Brand! @belongsTo
     Images: [ProductImage!]! @hasMany
-    ProductAttributes: [ProductAttribute!]! @hasMany
 }
 
 type ProductImage{
@@ -100,7 +99,6 @@ type LogoutResponse {
     message: String
 }
 
-
 type RegisterResponse {
     tokens: AuthPayload
     status: RegisterStatuses!
@@ -108,6 +106,11 @@ type RegisterResponse {
 
 type ProductImageResponse {
     status: Int
+}
+
+type ContactResponse {
+    status: Int
+    message: String
 }
 
 enum RegisterStatuses {

@@ -13,11 +13,13 @@ type Mutation {
     deleteBrandImage(id: ID!): Brand @field(resolver: "BrandMutation@deleteImage")
 
     uploadProductImage(input: ProductImageInput @spread): ProductImageResponse @field(resolver: "ProductImageMutation@upload")
-    deleteProductImage(id: ID!): ProductImage @field(resolver: "ProductImageMutation@delete")
+    deleteProductImage(id: ID!): ProductImageResponse @field(resolver: "ProductImageMutation@deleteAll")
 
     createUser(input: UserInput @spread, password: String! @rules(apply: ["required","confirmed","string","min:6","max:20"]), password_confirmation: String! @rules(apply: ["required","string","min:6","max:20"])): User @field(resolver: "UserMutation@create")
     updateUser(id: ID!,input: UserInput @spread): User @field(resolver: "UserMutation@update")
     deleteUser(id: ID!): User @field(resolver: "UserMutation@delete")
+
+    contact(input: ContactInput @spread): ContactResponse! @field(resolver: "ContactMutation")
 
     createOrder(input: OrderInput @spread): Order @field(resolver: "OrderMutation")
     deleteOrder(id: ID): Order @field(resolver: "OrderMutation@delete")

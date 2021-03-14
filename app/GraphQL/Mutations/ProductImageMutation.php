@@ -19,16 +19,23 @@ class ProductImageMutation
 
         return ['status' => 200];
     }
-    public function delete($_,$args)
+    public function deleteAll($_,$args)
     {
-        $productImage = ProductImage::find($args['id']);
+        $productImages = ProductImage::where("product_id","=",$args['id'])->get();
 
-        if($productImage->image != null && !empty($productImage->image) && file_exists(storage_path('app/public/uploads/products/'.$productImage->image))){
-            unlink(storage_path('app/public/uploads/products/'.$productImage->image));
+        if($productImages != null){
+
+            foreach ($productImages as $productImage) {
+                if($productImage->image != null && !empty($productImage->image) && file_exists(storage_path('app/public/uploads/products/'.$productImage->image))){
+                    unlink(storage_path('app/public/uploads/products/'.$productImage->image));
+                }
+
+                $productImage->delete();
+            }
+
+            return ['status' => 200];
         }
 
-        if($productImage->delete()){
-            return $productImage;
-        }
+        return ['status' => 400];
     }
 }

@@ -3,6 +3,13 @@ input BrandInput {
     logo: Upload
 }
 
+input ContactInput {
+    name: String! @rules(apply: ["required", "string", "min:2", "max:30"]),
+    subject: String! @rules(apply: ["required", "string", "min:10", "max:255"]),
+    message: String! @rules(apply: ["required", "string", "min:10", "max:255"]),
+    email: String! @rules(apply: ["required", "string"])
+}
+
 input CategoryInput {
     name: String! @rules(apply: ["required","string","min:2","max:30"])
     parent_id: Int @rules(apply: ["integer"])
@@ -41,7 +48,7 @@ input UserInput {
     first_name: String! @rules(apply: ["required","string","min:2","max:30"]),
     last_name: String! @rules(apply: ["required","string","min:2","max:30"]),
     address: String @rules(apply: ["nullable","string","min:5","max:255"]),
-    email: String! @rules(apply: ["required","string","min:2","max:50"])
+    email: String! @rules(apply: ["required","string"])
     country: String @rules(apply: ["nullable","string","min:2","max:60"])
     city: String @rules(apply: ["nullable","string","min:2","max:60"])
     zip_code: String @rules(apply: ["nullable","string","min:4","max:5"])
